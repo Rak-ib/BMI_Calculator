@@ -30,8 +30,8 @@
         <div id="result" class="mt-4 text-center text-gray-800"></div>
     </div>
 
-    <dialog id="my_modal_3" class="modal" style="width: 800px; height: 200px;">
-        <div class="modal-box rounded-lg p-10" style="max-width: 100%; max-height: 100%;padding: 20px; overflow: auto;">
+    <dialog id="my_modal_3" class="modal" >
+        <div id="modalBox" class="modal-box rounded-lg shadow-xl p-6" >
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute ">✕</button>
             </form>
@@ -47,33 +47,36 @@
         function calculateBMI() {
             const weight = parseFloat(document.getElementById("weight").value);
             const heightCm = parseFloat(document.getElementById("height").value);
+            
 
             if (weight > 0 && heightCm > 0) {
                 const heightM = heightCm / 100; 
                 const bmi = (weight / (heightM * heightM)).toFixed(2);
                 let advice = "";
                 let stage = "";
+                var color="";
 
                 if (bmi < 18.5) {
                     stage = "Underweight";
-                    advice =
-                        "You are underweight. Consider consulting a healthcare provider for a balanced diet plan to gain healthy weight.";
+                    color = "bg-white";
+                    advice ="You are underweight. Consider consulting a healthcare provider for a balanced diet plan to gain healthy weight.";
                 } else if (bmi >= 18.5 && bmi <= 24.9) {
                     stage = "Normal weight";
-                    advice =
-                        "You are in good shape! Keep maintaining a balanced diet and regular exercise.";
+                    color = "bg-green-200";
+                    advice ="You are in good shape! Keep maintaining a balanced diet and regular exercise.";
                 } else if (bmi >= 25 && bmi <= 29.9) {
                     stage = "Overweight";
-                    advice =
-                        "You are overweight. Regular exercise and a healthy diet can help you achieve a normal BMI.";
+                    color = "bg-yellow-200";
+                    advice ="You are overweight. Regular exercise and a healthy diet can help you achieve a normal BMI.";
                 } else {
                     stage = "Obese";
-                    advice =
-                        "You are in the obese category. It is advisable to consult a healthcare provider for personalized guidance.";
+                    color = "bg-red-200";
+                    advice ="You are in the obese category. It is advisable to consult a healthcare provider for personalized guidance.";
                 }
 
                 document.getElementById("bmiResult").innerText = `Your BMI is ${bmi} (${stage})`;
                 document.getElementById("bmiAdvice").innerText = advice;
+                document.getElementById("modalBox").className = `modal-box rounded-lg p-6 shadow-xl ${color}`;
                 document.getElementById("my_modal_3").showModal();
             } else {
                 alert("Please enter valid inputs.");
